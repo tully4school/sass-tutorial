@@ -9,5 +9,16 @@ $font-weights: (
 body {
 	background-color: $primary-color;
 	color: $text-color;
-	font-weight: map-get($font-weights, bold);
+}
+.main {
+	width: 80%;
+	margin: 0 auto;
+
+	#{&}_paragraph {
+		font-weight: map-get($font-weights, bold);
+	}
+	&:hover {
+		color: hotpink;
+		transition: ease-in 3s;
+	}
 }
