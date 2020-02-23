@@ -1,24 +1,52 @@
-$primary-color: #272727;
-$accent-color: #ff652f;
-$text-color: #fff;
-$font-weights: (
-	"regular": 400,
-	"medium": 500,
-	"bold": 700
-);
+@import "./resets";
+@import "./variables";
+
+@function weight($weight-name) {
+	@return map-get($font-weights, $weight-name);
+}
+
+@mixin flexCenter($direction) {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: $direction;
+}
+
+@mixin theme($light-theme: true) {
+	@if $light-theme {
+		background: lighten($primary-color, 100%);
+		color: darken($text-color, 100%);
+	}
+}
+@mixin mobile {
+	@media (max-width: $mobile) {
+		@content;
+	}
+}
+
 body {
 	background-color: $primary-color;
 	color: $text-color;
 }
 .main {
+	@include flexCenter(column);
 	width: 80%;
 	margin: 0 auto;
 
 	#{&}_paragraph {
-		font-weight: map-get($font-weights, bold);
+		font-weight: weight(bold);
+
+		&:hover {
+			color: hotpink;
+			transition: ease-in 3s;
+		}
 	}
-	&:hover {
-		color: hotpink;
-		transition: ease-in 3s;
+
+	@include mobile {
+		flex-direction: row;
 	}
+}
+
+.light {
+	@include theme($light-theme: false);
 }
